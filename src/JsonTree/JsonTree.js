@@ -55,7 +55,7 @@ function JsonTree({url}) {
 
   const isImageUrl = str => {
     let strEnd = str.substring(str.length - 4, str.length)
-    return (str.substring(0,4) === 'http' && (strEnd === '.png' || strEnd === '.jpg' || strEnd === '.svg'));
+    return (str.substring(0,4) === 'http' && (str.includes('.png') || str.includes('.jpg') || str.includes('.svg')));
   }
 
   const renderJsonTree = (obj, parentKeys = [], level = 0) => {
