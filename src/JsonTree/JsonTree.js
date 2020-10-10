@@ -75,7 +75,7 @@ function JsonTree({url}) {
         tree.push(...renderJsonTree(value, parentKeysClone , level + 1));
       } else {
         //display image if value is image url, otherwise just display the value
-        if (isImageUrl(value.toString())) {
+        if (value !== null && isImageUrl(value.toString())) {
           tree.push(<div className="treeElement" style={{marginLeft: `${25 * level}px`}} data-level={level} data-key={reactKey} key={reactKey}>{`${key}:`}<img src={value} alt=''/></div>);
         } else {
           tree.push(<div className="treeElement" style={{marginLeft: `${25 * level}px`}} data-level={level} data-key={reactKey} key={reactKey}>{`${key}: ${value}`}</div>);
