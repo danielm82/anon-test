@@ -64,7 +64,7 @@ function JsonTree({url}) {
     Object.entries(obj).forEach(([key, value]) => {
       //reactKey is also used when toggling collapse, see toggleCollapse function
       let reactKey = parentKeys.length === 0 ? key : `${parentKeys.join('-')}-${key}`;
-      if (typeof value === 'object') {
+      if (typeof value === 'object' && value !== null) {
         //recursively call renderJsonTree
         let parentKeysClone = [...parentKeys];
         parentKeysClone.push(key);
