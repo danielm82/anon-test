@@ -34,27 +34,28 @@ function JsonTree({url}) {
   const toggleCollapse = (e, key) => {
     e.currentTarget.classList.toggle('collapsed');
 
-    if (e.currentTarget.classList.contains('collapsed')) {
-      document.querySelectorAll(`.treeElement[data-key|="${key}"]`).forEach(element => {
-        element.classList.add('hide');
+    function toggleElements(id, level, hide) {
+      document.querySelectorAll(`.treeElement[data-key|="${id}"][data-level="${level}"]`).forEach(element => {
+        if (hide) {
+          element.classList.add('hide');
+        } else {
+          element.classList.remove('hide');
+        }        
+        if (element.classList.contains('clickable') && !element.classList.contains('collapsed')) {
+          toggleElements(element.dataset.key, level + 1, hide);
+        }
       });
+    }
+
+    if (e.currentTarget.classList.contains('collapsed')) {
+      toggleElements(key, parseInt(e.currentTarget.dataset.level) + 1, true);
       e.currentTarget.classList.remove('hide');
     } else {
-      function showElements(id, level) {
-        document.querySelectorAll(`.treeElement[data-key|="${id}"][data-level="${level}"]`).forEach(element => {
-          element.classList.remove('hide');
-          if (element.classList.contains('clickable') && !element.classList.contains('collapsed')) {
-            showElements(element.dataset.key, level + 1);
-          }
-        });
-      }
-
-      showElements(key, parseInt(e.currentTarget.dataset.level) + 1);
+      toggleElements(key, parseInt(e.currentTarget.dataset.level) + 1, false);
     }
   }
 
   const isImageUrl = str => {
-    let strEnd = str.substring(str.length - 4, str.length)
     return (str.substring(0,4) === 'http' && (str.includes('.png') || str.includes('.jpg') || str.includes('.svg')));
   }
 

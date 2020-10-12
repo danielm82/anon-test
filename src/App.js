@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="App">
-      <input placeholder="Type JSON URL here" ref={inputElement} />
+      <input placeholder="Type JSON URL here" ref={inputElement}/>
       <button onClick={() => {setUrl(inputElement.current.value)}}>Retrieve JSON</button>
       <JsonTree url={url} />
     </div>
